@@ -17,18 +17,23 @@ function WatchDisplay() {
         return usTime.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true });
     }
     
+    let oneInterval = null;
+    let secondInterval = null;
+    
     function firstTypeOfWatch() {
         oneInterval = setInterval(() => {
             clock.textContent = watch();
         }, 0);
+        clearInterval(secondInterval);
     }
 
     function secondTypeOfWatch() {
-        twoInterval = setInterval(() => {
+        secondInterval = setInterval(() => {
             clock.textContent = secondWatch();
         }, 0);
+        clearInterval(oneInterval);
     }
-    
+ 
     return {
         firstTypeOfWatch,
         secondTypeOfWatch
@@ -42,13 +47,11 @@ const watchDisplayed = new WatchDisplay();
 twelfthHour.addEventListener('click', function(e) {
     e.preventDefault();
     watchDisplayed.secondTypeOfWatch();
-    clearInterval(oneInterval);
 })
 
 twentyFourHour.addEventListener('click', function(e) {
     e.preventDefault();
     watchDisplayed.firstTypeOfWatch();
-    clearInterval(twoInterval);
 });
 
 
